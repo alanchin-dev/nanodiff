@@ -14,6 +14,19 @@ bench.py      ~105 lines   progressive inference speedups
 
 ![samples](samples.png)
 
+## Training log
+
+Trained on Apple M4 Pro (MPS) with `--base_ch 64` (~5.7M params). ~17 hours.
+
+```
+step    1000 | loss 0.0724
+step   10000 | loss 0.0607
+step   50000 | loss 0.0561
+step  100000 | loss 0.0551
+step  150000 | loss 0.0541
+step  200000 | loss 0.0549
+```
+
 ## What it implements
 
 **Architecture**: DDPM UNet (Ho et al. 2020)

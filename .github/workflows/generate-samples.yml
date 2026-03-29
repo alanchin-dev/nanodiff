@@ -1,0 +1,33 @@
+name: Generate samples
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download checkpoint
+        run: gh release download v1.0 --pattern ckpt_0200000.pt --dir output
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate samples
+        run: python sample.py --ckpt output/ckpt_0200000.pt --n 16 --out samples_ci.png
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-samples
+          path: samples_ci.png
