@@ -10,6 +10,10 @@ train.py       ~75 lines   training loop on CIFAR-10
 bench.py      ~105 lines   progressive inference speedups
 ```
 
+## Samples (200k steps, CIFAR-10)
+
+![samples](samples.png)
+
 ## What it implements
 
 **Architecture**: DDPM UNet (Ho et al. 2020)
@@ -34,6 +38,10 @@ python train.py
 
 # Smaller model for quick iteration (~9M params vs default 35M)
 python train.py --base_ch 64
+
+# Generate images from a trained checkpoint
+python sample.py
+python sample.py --ckpt output/ckpt_0200000.pt --n 25 --out grid.png
 
 # Benchmark inference optimizations (works with random weights)
 python bench.py
